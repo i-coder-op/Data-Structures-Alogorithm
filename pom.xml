@@ -6,4 +6,9 @@
   <version>1.0-SNAPSHOT</version>
   <name>Archetype - data-strutures-algorithm-java</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <maven.compiler.source>16</maven.compiler.source>
+    <maven.compiler.target>16</maven.compiler.target>
+  </properties>
 </project>
