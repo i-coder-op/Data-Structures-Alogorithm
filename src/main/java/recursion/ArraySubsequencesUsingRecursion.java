@@ -18,14 +18,14 @@ public class ArraySubsequencesUsingRecursion {
      * @param n
      */
     private static void arraySubsequence(int index, int[] arr, List<Integer> list, int n) {
-        if(index >= n){
+        if(index == n){
             System.out.println("");
             list.stream().forEach(integer -> System.out.print(integer + " "));
             return;
         }
         list.add(arr[index]);
         arraySubsequence(index+1, arr, list, n);
-        list.remove(arr[index]);
+        list.remove(list.size()-1);
         arraySubsequence(index+1, arr, list, n);
     }
 }
