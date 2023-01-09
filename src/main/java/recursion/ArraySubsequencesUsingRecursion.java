@@ -3,6 +3,9 @@ package recursion;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This pattern will be used to solve any subsequences problem using recursion and will be very useful in the dynamic programming as well.
+ */
 public class ArraySubsequencesUsingRecursion {
     public static void main(String[] args) {
         int[] arr = {3, 1, 2};
@@ -19,12 +22,16 @@ public class ArraySubsequencesUsingRecursion {
      */
     private static void arraySubsequence(int index, int[] arr, List<Integer> list, int n) {
         if(index == n){
+            //It prints the subsequences once the index reaches the size of the array
             System.out.println("");
             list.stream().forEach(integer -> System.out.print(integer + " "));
             return;
         }
+        //Take element into consideration - add it to the list and call the function for next index
         list.add(arr[index]);
         arraySubsequence(index+1, arr, list, n);
+
+        //Do not Take element into consideration - remove it from the list and call the function for next index
         list.remove(list.size()-1);
         arraySubsequence(index+1, arr, list, n);
     }
