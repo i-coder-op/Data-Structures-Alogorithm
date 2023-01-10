@@ -5,6 +5,13 @@ import java.util.List;
 
 /**
  * This pattern will be used to solve any subsequences problem using recursion and will be very useful in the dynamic programming as well.
+ * Pattern:
+ * 1. Take
+ * add element to list
+ * call method with index+1 recursively
+ * 2. Not take
+ * remove the (size-1) element from list
+ * call method with index+1 recursively
  */
 public class ArraySubsequencesUsingRecursion {
     public static void main(String[] args) {
