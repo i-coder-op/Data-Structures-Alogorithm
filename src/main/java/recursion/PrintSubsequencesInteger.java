@@ -1,8 +1,6 @@
 package recursion;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Leet Code: 78. Subsets
