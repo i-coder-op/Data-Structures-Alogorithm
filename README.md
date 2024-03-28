@@ -1,2 +1,4 @@
-# Data-Structures-Alogorithm
-This repository provides a deep understanding of data structures and algorithm and have all the DSA coded in java programming language.
+# Data-Structures-Algorithm
+
+1. Gives an idea about various data structures and algorithms
+2. Solution to the various interview asked questions on DSA.
