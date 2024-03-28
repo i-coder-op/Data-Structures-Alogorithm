@@ -5,6 +5,18 @@ import tree.binarytree.linkedlist.BinaryTree;
 
 import java.util.*;
 
+/**
+ * Algorithm:
+ * 1. Create a stack and push the root node initially.
+ * 2. Create a list of type Integer to hold the traversed node.
+ * 3. Create a Set of type BinaryNode to hold all the visited nodes.
+ * 4. Iterate thru the stack till it is not empty.
+ * 5. Inside loop
+ *      1. very first step is to get the top node from the stack but do not remove at this moment.
+ *      2. check if the that node is already visited or not
+ *      3. If that node is not visited then take its right node & then left node and push it to stack respectively.
+ *      4. If that node which is top node is already visited then we will pop that node & add into the traversal list.
+ */
 public class _2_PostOrderTraversalIterative {
     public static void main(String[] args) {
         BinaryTree binaryTree = new BinaryTree();
