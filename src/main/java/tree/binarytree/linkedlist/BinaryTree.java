@@ -158,7 +158,7 @@ public class BinaryTree {
      * @param root
      * @param data
      */
-    private void insertNodeBT(BinaryNode root, int data) {
+    public void insertNodeBT(BinaryNode root, int data) {
         if(null == root){
             root = new BinaryNode();
             root.data = data;
@@ -206,7 +206,7 @@ public class BinaryTree {
      * This method will search the number in the entire tree using level order traversal | TC-O(n)
      * @param numberToBeSearched
      */
-    private void searchInTree(int numberToBeSearched) {
+    public void searchInTree(int numberToBeSearched) {
         Queue<BinaryNode> queue = new LinkedList<>();
         queue.add(root);
         boolean isNumberFound = false;
@@ -236,7 +236,7 @@ public class BinaryTree {
      * Level Order Traversal | using Queue as linked list
      * @param root
      */
-    private void levelOrderTraversal(BinaryNode root) {
+    public void levelOrderTraversal(BinaryNode root) {
         Queue<BinaryNode> queue = new LinkedList<>();
         //Initially insert root node in the queue
         queue.add(root);
@@ -256,7 +256,7 @@ public class BinaryTree {
      * PostOrder Traversal | leftSubtree -> rightSubtree -> root
      * @param root
      */
-    private void postOrderTraversal(BinaryNode root) {
+    public void postOrderTraversal(BinaryNode root) {
         if(null == root){
             return;
         }
@@ -270,7 +270,7 @@ public class BinaryTree {
      * InOrder Traversal | leftSubtree -> root -> rightSubtree
      * @param root
      */
-    private void inOrderTraversal(BinaryNode root) {
+    public void inOrderTraversal(BinaryNode root) {
         if(null == root) {
             return;
         }
@@ -284,7 +284,7 @@ public class BinaryTree {
      * PreOrder Traversal | root -> leftSubtree -> rightSubtree
      * @param root
      */
-    private void preOrderTraversal(BinaryNode root) {
+    public void preOrderTraversal(BinaryNode root) {
         if(null == root){
             return;
         }
@@ -298,7 +298,7 @@ public class BinaryTree {
      * @param root
      * @param data
      */
-    private void insertNodeBST(BinaryNode root, int data) {
+    public void insertNodeBST(BinaryNode root, int data) {
         if(data < root.data){
             if(null == root.left){
                 root.left = new BinaryNode();
@@ -324,7 +324,7 @@ public class BinaryTree {
      * Creating root node in the tree
      * @param data
      */
-    private void createRootNode(int data) {
+    public void createRootNode(int data) {
         if(null == root){
             root = new BinaryNode();
             root.data = data;
