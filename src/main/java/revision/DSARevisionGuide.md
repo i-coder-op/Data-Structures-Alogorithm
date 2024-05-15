@@ -1864,9 +1864,68 @@ _Code_:
 
 ------------------------------------------------------------------------------------------------------------------
 
-**7. Find K-th smallest/largest element in BST**
+**6. Delete a Node in Binary Search Tree**
 
 _Approach:_ Approach is very simple, to delete a node in BST we will have three conditions.
+
+        1. Node to be deleted is a leaf node, in this case we will return null.
+        2. Node to be delete have left subtree null so we will return right subtree or have right subtree null so we will return left subtree.
+        3. Node to be deleted have both left and right subtree. In this case we need to find the smallest node in the right subtree and replace smallest node value with the node to be deleted. after that we need to delete the smallest node of right subtree.
+
+_Code_:
+
+    class Solution {
+        public TreeNode deleteNode(TreeNode root, int key) {
+            if(null == root){
+                return null;
+            }
+    
+            if(root.val == key){
+                if(null == root.left && null == root.right){
+                    return null;
+                }
+    
+                if(null != root.left && null != root.right){
+                    TreeNode smallestNode = find(root.right);
+                    root.val = smallestNode.val;
+                    root.right = deleteNode(root.right, smallestNode.val);
+                    return root;
+                }
+    
+                if(null == root.left){
+                    return root.right;
+                }
+    
+                if(null == root.right){
+                    return root.left;
+                }
+            }
+    
+            if(key < root.val){
+                root.left = deleteNode(root.left, key);
+            }
+    
+            if(key > root.val){
+                root.right = deleteNode(root.right, key);
+            }
+            
+            return root;
+        }
+    
+        public TreeNode find(TreeNode root){
+            if(null == root.left){
+                return root;
+            }
+    
+            return find(root.left);
+        }
+    }
+
+------------------------------------------------------------------------------------------------------------------
+
+**7. Find K-th smallest/largest element in BST**
+
+_Approach:_
 
         1. Simply just apply the in-order traversal. 
         2. which will automatically sort the nodes from left to right
