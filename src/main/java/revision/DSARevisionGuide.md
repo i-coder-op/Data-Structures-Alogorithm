@@ -320,7 +320,7 @@ _Code:_
 
 **7. Boundary Traversal of Binary Tree**
 
-_Approach:_ I was good on my approach but was stuck on some test cases. since i was trying to solve it using recursion but it can be solved iteratively.
+_Approach:_ I was good on my approach but was stuck on some test cases. since I was trying to solve it using recursion, but it can be solved iteratively.
 
     1. Find the leftBoundary (If current is not leaf then go to left and if left is null then go to right)
         
@@ -1050,7 +1050,7 @@ _Code (Approach 2 - Optimal Using recursion)_:
 
 **13. LCA in Binary Tree**
 
-_Approach:_ I have tried solving this problem using brute force approach where i am holding details in the map as
+_Approach:_ I have tried solving this problem using brute force approach where I am holding details in the map as
 
     node -> list of ancestors
     which is actually not optimised solution.
@@ -2350,7 +2350,105 @@ _Code_:
         }
     }
 
+------------------------------------------------------------------------------------------------------------------
+# Sliding Window
 
+Sliding window algorithm is basically used to optimise the solution which is in O(n^2) to O(n).
 
-  
+There are two types of sliding window:
+    
+    1. Fixed size sliding window.
+    2. Variable size sliding window.
+
+### 1. Fixed size sliding window:
+
+    1. It's basically easy level of sliding window problems where window size will be fixed.
+    2. Window size will be fixed till the problem is not solved.
+
+#### Q. How to identify if the problem can be solved using sliding window pattern?
+    
+    1. Array or String will be given.
+    2. we need to find sub-array or sub-string.
+    3. we will be given window size as K.
+                    
+                    OR
+
+    1. Array or String will be given.
+    2. we need to find the window of size k.
+    3. we will be given some condition.
+
+#### Template to write a fixed size sliding window code.
+
+    i = 0;
+    j = 0;
+    
+    while(j < array.length or string.length()){
+        
+        //HERE WE WILL DO SOME CALCULATION ON INCREMENTING j
+        
+        if((j-i+1) < k){
+            //Just increment j to achieve the window size
+            j++;
+        }
+
+        //This case where window size will be achieved
+        else if((j-i+1) == k){
+            
+            //HERE WE WILL AGAIN DO SOME CALCULATION TO FIND OUT RESULT
+        
+            //Increment i & j to slide the window
+            
+            i++;
+            j++;
+        }
+    }
+
+    where,
+
+        i = start index of window
+        j = end index of window
+        k = size of window
+
+### 2. Variable size sliding window:
+    
+    1. It's basically medium to hard level of sliding window problems where window size will not be fixed and it can vary based on some condition.
+    2. Window size will not be fixed till the problem is not solved.
+
+#### Q. How to identify if the problem can be solved using sliding window pattern?
+
+    1. Array or String will be given.
+    2. we need to maximize or minimize sub-array or sub-string.
+    3. we will be given some condition and based on that our window size will vary.
+
+#### Template to write a variable size sliding window code.
+
+    i = 0;
+    j = 0;
+    
+    while(j < array.length or string.length()){
+        
+        //HERE WE WILL DO SOME CALCULATION ON INCREMENTING j
+        
+        if(some condition < k){
+            //Just increment j to reach a specific answer
+            j++;
+        }
+        else if (some condition == k){
+            //HERE WE WILL AGAIN DO SOME CALCULATION TO FIND OUT RESULT
+            
+            j++;
+        }
+        else if (some condition > k){
+            while(some condition > k){
+                i++;
+            }
+            j++;
+        }
+    }
+
+    where,
+
+        i = start index of window
+        j = end index of window
+        k = condition given in the question
 
