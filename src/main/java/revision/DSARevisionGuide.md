@@ -2452,3 +2452,70 @@ There are two types of sliding window:
         j = end index of window
         k = condition given in the question
 
+-----------------------------------------------------------------------------------------------------
+
+**1. Max Consecutive Ones III**
+
+_**Leet Code (Medium)**_: https://leetcode.com/problems/max-consecutive-ones-iii/description/
+
+_**Problem Statement**_: Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.
+
+_Approach:_ This is a variable sliding window problem
+
+    1. Initialize i, j & result with 0.
+    2. Create a hashmap to track number of flipped 0 to 1.
+    3. While loop thru all the elements in the array until j < nums.length.
+    4. if nums[j] == 1 just increment j as j++.
+    5. if nums[j] == 0 then it will have 2 cases
+        
+        i. if map size is equal to 0(zero) then it means we have not flipped any element from 0 to 1 and it implies
+            that k == 0 si given in the question.
+        
+        ii. if map size is greater than 0 that means we have flipped atleast an element from 0 to 1, so we will increment 
+            until we get some index matched in map. If matched then we will flip it back from 1 to 0, remove the entry from 
+            map and increment i and increment k.
+    
+    6. Done
+
+_Code_:
+
+    class Solution {
+        public int longestOnes(int[] nums, int k) {
+            int i = 0;
+            int j = 0;
+            int result = 0;
+            HashMap<Integer, Integer> map = new HashMap<>();
+    
+            while(j < nums.length){
+                if(nums[j] == 1){
+                    j++;
+                }else if(nums[j] == 0){
+                    if(k > 0){
+                        map.put(j, 1);
+                        nums[j] = 1;
+                        j++;
+                        k--;
+                    } else {
+                        if(map.size() > 0){
+                            while(!map.containsKey(i)){
+                                i++;
+                            }
+                            map.remove(i);
+                            nums[i] = 0;
+                            i++;
+                            k++;
+                        } else {
+                            while(j < nums.length && nums[j] == 0){
+                                j++;
+                            }
+                            i = j;
+                        }
+                    }
+                }
+                result = Integer.max(result, j-i);
+            }
+            return result;
+        }
+    }
+
+------------------------------------------------------------------------------------------------------------------
