@@ -2519,3 +2519,381 @@ _Code_:
     }
 
 ------------------------------------------------------------------------------------------------------------------
+# Graphs
+
+**1. BFS of graph**
+
+_**GFG (Easy)**_: https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/0
+
+_**Problem Statement**_: Given a directed graph. The task is to do Breadth First Traversal of this graph starting from 0.
+
+Note: One can move from node u to node v only if there's an edge from u to v. Find the BFS traversal of the graph starting from the 0th vertex, from left to right according to the input graph. Also, you should only take nodes directly or indirectly connected from Node 0 in consideration.
+
+**_Approach:_** BFS Graph traversal is a kind of traversal where we traverse the adjacent nodes first then move on to other unvisited nodes.
+
+_Code:_
+    
+    class Solution {
+        // Function to return Breadth First Traversal of given graph.
+        public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+            // Code here
+            boolean[] visited = new boolean[V];
+            ArrayList<Integer> bfsList = new ArrayList<>();
+        
+            compute(0, adj, bfsList, visited);
+            
+            return bfsList;
+        }
+        
+        public void compute(int vertex, ArrayList<ArrayList<Integer>> adj, ArrayList<Integer> bfsList, boolean[] visited){
+            Queue<Integer> queue = new LinkedList<>();
+            queue.add(vertex);
+            visited[vertex] = true;
+            
+            while(!queue.isEmpty()){
+               int removedNode = queue.poll();
+               bfsList.add(removedNode);
+               
+               for(Integer adjNode : adj.get(removedNode)){
+                   if(!visited[adjNode]){
+                       visited[adjNode] = true;
+                       queue.add(adjNode);
+                   }
+               }
+            }
+        }
+    }
+------------------------------------------------------------------------------------------------------------------
+**2. DFS of Graph**
+
+_**GFG (Easy)**_: https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
+
+_**Problem Statement**_: You are given a connected undirected graph. Perform a Depth First Traversal of the graph.
+
+Note:  Use the recursive approach to find the DFS traversal of the graph starting from the 0th vertex from left to right according to the graph.
+
+**_Approach:_** BFS Graph traversal is a kind of traversal where we traverse the nodes from start to its depth. And it's a recursive approach.
+
+**_Code:_**
+
+    class Solution {
+        // Function to return a list containing the DFS traversal of the graph.
+        public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+            boolean[] visited = new boolean[V];
+            ArrayList<Integer> dfsList = new ArrayList<>();
+            
+            compute(0, adj, dfsList, visited);
+            return dfsList;
+        }
+        
+        public void compute(int vertex, ArrayList<ArrayList<Integer>> adj, ArrayList<Integer> dfsList, boolean[] visited){
+            dfsList.add(vertex);
+            visited[vertex] = true;
+            
+            for(Integer adjNode : adj.get(vertex)){
+                if(!visited[adjNode]){
+                    compute(adjNode, adj, dfsList, visited);
+                }
+            }
+            return;
+        }
+    }
+------------------------------------------------------------------------------------------------------------------
+**3. Number of Provinces**
+
+_**LeetCode (Medium)**_: https://leetcode.com/problems/number-of-provinces/description/
+
+_**Problem Statement**_: There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
+
+A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+
+You are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and isConnected[i][j] = 0 otherwise.
+
+Return the total number of provinces.
+
+**_Approach:_** Number of provinces implies number of disconnected components. So we can use either BFS or DFS both will work in same complexity.
+
+    1. Create an adjacency list using NxN adjacency matrix.
+        
+        List<List<Integer>> adjList = new ArrayList<>();
+
+    2. Initialize a variable like below to hold the number of provinces/number of disconnected component in graph.
+        
+        int provinces = 0;
+
+    3. Create a visited boolean array which holds the true value if the particular node is visited.
+        
+        boolean[] visited = new boolean[adjList.size()];
+
+    4. Apply the BFS/DFS Algorithm and for each disconnected component increment provinces variable by 1.
+
+**_Code:_**
+
+    class Solution {
+        public int findCircleNum(int[][] isConnected) {
+            int provinces = 0;
+    
+            //Adjacency List
+            List<List<Integer>> adjList = new ArrayList<>();
+    
+            //Preparing adjacency list
+            for(int i=0;i<isConnected.length;i++){
+                List<Integer> adj = new ArrayList<>();
+                
+                for(int j=0;j<isConnected[i].length;j++){
+                    if(i != j && isConnected[i][j] == 1){
+                        adj.add(j);
+                    }
+                }
+    
+                adjList.add(adj);
+            }
+    
+            boolean[] visited = new boolean[adjList.size()];
+    
+            for(int i=0;i<adjList.size();i++){
+                if(!visited[i]){
+                    provinces++;
+                    //computeBFS(i, adjList, visited);
+                    computeDFS(i, adjList, visited);
+                }
+            }
+    
+            return provinces;
+        }
+    
+        public void computeDFS(int vertex, List<List<Integer>> adjList, boolean[] visited){
+            visited[vertex] = true;
+    
+            for(Integer adjNode : adjList.get(vertex)){
+                if(!visited[adjNode]){
+                    computeDFS(adjNode, adjList, visited);
+                }
+            }
+    
+            return;
+        }
+    
+        public void computeBFS(int vertex, List<List<Integer>> adjList, boolean[] visited){
+            Queue<Integer> queue = new LinkedList<>();
+            queue.add(vertex);
+            visited[vertex] = true;
+    
+            while(!queue.isEmpty()){    
+                int removedNode = queue.poll();
+    
+                for(Integer adjNode : adjList.get(removedNode)){
+                    if(!visited[adjNode]){
+                        queue.add(adjNode);
+                        visited[adjNode] = true;
+                    }
+                }
+            }
+        }
+    }
+------------------------------------------------------------------------------------------------------------------
+**5. Flood Fill**
+
+_**LeetCode (Medium)**_: https://leetcode.com/problems/flood-fill/description/
+
+_**Problem Statement**_: An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.
+
+You are also given three integers sr, sc, and color. You should perform a flood fill on the image starting from the pixel image[sr][sc].
+
+To perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color), and so on. Replace the color of all of the aforementioned pixels with color.
+
+Return the modified image after performing the flood fill.
+
+**_Approach:_** We need to apply BFS algorithm and adjacent node of current node will be located at up, down, right, left.
+
+    1. Create a data structure to basically hold row index and column index;
+        
+        class Data {
+            int rIdx;
+            int cIdx;
+        }
+
+    2. As a first step we will check if input pixels color in the image[][] matrix is same as input color.
+
+        Example: 
+            
+            image[sr][sc] = 1
+            color = 1;
+
+        then in this case we will just return the same matrix with no change.
+
+    3. If Step 2 is not satisfied then in this case we will perform BFS travsersal and color the 4-directionally located
+        adjacent nodes.
+
+    4. We will color only those 4 - directional adjacent nodes which has same color as current node and not visited adjacent node.
+
+    5. Once the adjacent node is eligible for coloring then in that case we will color that adjacent node and mark it as visited. 
+
+**_Code:_**
+
+    class Solution {
+        public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+            if (image[sr][sc] == color) {
+                return image;
+            } else {
+                computeBFS(image, sr, sc, color);
+            }
+    
+            return image;
+        }
+    
+        public void computeBFS(int[][] image, int sr, int sc, int color){
+            boolean[][] visited = new boolean[image.length][image[0].length];
+            Queue<Data> queue = new LinkedList<>();
+            queue.add(new Data(sr, sc));
+            visited[sr][sc] = true;
+    
+            while(!queue.isEmpty()){
+                Data data = queue.poll();
+    
+                int i = data.rIdx;
+                int j = data.cIdx;
+    
+                int currentPixel = image[i][j];
+                //Left
+                if(j-1 >= 0 && image[i][j-1] == currentPixel && !visited[i][j-1]){
+                    queue.add(new Data(i, j-1));
+                    visited[i][j-1] = true;
+                }
+    
+                //Right
+                if(j+1 < image[0].length && image[i][j+1] == currentPixel && !visited[i][j+1]){
+                    queue.add(new Data(i, j+1));
+                    visited[i][j+1] = true;
+                }
+    
+                //Up
+                if(i-1 >= 0 && image[i-1][j] == currentPixel && !visited[i-1][j]){
+                    queue.add(new Data(i-1, j));
+                    visited[i-1][j] = true;
+                }
+    
+                //Down
+                if(i+1 < image.length && image[i+1][j] == currentPixel && !visited[i+1][j]){
+                    queue.add(new Data(i+1, j));
+                    visited[i+1][j] = true;
+                }
+    
+                image[i][j] = color;
+            }
+        }
+    }
+
+    class Data {
+        int rIdx;
+        int cIdx;
+    
+        public Data(int rIdx, int cIdx) {
+            this.rIdx = rIdx;
+            this.cIdx = cIdx;
+        }
+    }Cycle Detection in unirected Graph (bfs)
+------------------------------------------------------------------------------------------------------------------
+**6. Cycle Detection in undirected Graph (bfs/dfs)**
+
+_**GFG (Medium):**_ https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=detect-cycle-in-an-undirected-graph
+
+_**Problem Statement:**_ Given an undirected graph with V vertices labelled from 0 to V-1 and E edges, check whether it contains any cycle or not. Graph is in the form of adjacency list where adj[i] contains all the nodes ith node is having edge with.
+
+_**Approach:**_ Cycle detection can be done in  an undirected graph using BFS or DFS algorithm.
+
+    1. Create a data structure to basically hold node and previous node value;
+        
+        class Data {
+            int node;
+            int previous;
+        }
+
+    2. We will loop thru all the disconnected component and make a call to BFS/DFS for any un visited node.
+
+    3. While traversing we will check if any of adjacent node which is visited and not the previous node, then in 
+        that case we will return true else false;
+
+    4. If return value is true then there will a cycle in the graph.  
+
+**_Code:_**
+
+    class Data {
+        int node;
+        int previous;
+        
+        public Data(int node, int previous){
+            this.node = node;
+            this.previous = previous;
+        }
+    }
+
+    class Solution {
+        // Function to detect cycle in an undirected graph.
+        public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+            // Code here
+            boolean[] visited = new boolean[V];
+
+            for(int i=0;i<V;i++){
+                if(!visited[i]){
+                    //This is BFS
+                    if(computeCycleDetectionBFS(i, adj, visited)){
+                        return true;
+                    }
+                    
+                    //This is DFS
+                    if(computeCycleDetectionDFS(i, -1, adj, visited)){
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+    
+        public boolean computeCycleDetectionDFS(int current, int previous, ArrayList<ArrayList<Integer>> adj, boolean[] visited){
+            visited[current] = true;
+            
+            for(int adjNode : adj.get(current)){
+                if(visited[adjNode]){
+                    if(adjNode != previous){
+                        return true;
+                    }
+                } else {
+                        if(computeCycleDetectionDFS(adjNode, current, adj, visited)){
+                            return true;
+                        }
+                }
+            }
+            
+            return false;
+        }
+    
+        public boolean computeCycleDetectionBFS(int vertex, ArrayList<ArrayList<Integer>> adj, boolean[] visited){
+            Queue<Data> queue = new LinkedList<>();
+            queue.add(new Data(vertex, -1));
+            visited[vertex] = true;
+            
+            
+            while(!queue.isEmpty()){
+                Data current = queue.poll();
+                
+                int currentNode = current.node;
+                int previous = current.previous;
+                
+                for(int adjNode : adj.get(currentNode)){
+                    if(visited[adjNode]){
+                        if(adjNode != previous){
+                            return true;
+                        }
+                    }else{
+                        queue.add(new Data(adjNode, currentNode));
+                        visited[adjNode] = true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+    }
+------------------------------------------------------------------------------------------------------------------
