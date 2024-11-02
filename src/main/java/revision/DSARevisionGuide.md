@@ -2692,6 +2692,117 @@ Return the total number of provinces.
         }
     }
 ------------------------------------------------------------------------------------------------------------------
+**4. Rotting Oranges**
+
+_**LeetCode (Medium):**_ https://leetcode.com/problems/rotting-oranges/description/
+
+_**Problem Statement:**_ You are given an m x n grid where each cell can have one of three values:
+
+- 0 representing an empty cell,
+- 1 representing a fresh orange, or
+- 2 representing a rotten orange.
+
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+_**Approach:**_ Cycle detection can be done in  an undirected graph using BFS or DFS algorithm.
+
+    1. Create a data structure to basically hold node and previous node value;
+        
+        class Data {
+            int node;
+            int previous;
+        }
+
+    2. We will loop thru all the disconnected component and make a call to BFS/DFS for any un visited node.
+
+    3. While traversing we will check if any of adjacent node which is visited and not the previous node, then in 
+        that case we will return true else false;
+
+    4. If return value is true then there will a cycle in the graph.  
+
+**_Code:_**
+
+    class Data {
+        int node;
+        int previous;
+        
+        public Data(int node, int previous){
+            this.node = node;
+            this.previous = previous;
+        }
+    }
+
+    class Solution {
+        // Function to detect cycle in an undirected graph.
+        public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+            // Code here
+            boolean[] visited = new boolean[V];
+
+            for(int i=0;i<V;i++){
+                if(!visited[i]){
+                    //This is BFS
+                    if(computeCycleDetectionBFS(i, adj, visited)){
+                        return true;
+                    }
+                    
+                    //This is DFS
+                    if(computeCycleDetectionDFS(i, -1, adj, visited)){
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+    
+        public boolean computeCycleDetectionDFS(int current, int previous, ArrayList<ArrayList<Integer>> adj, boolean[] visited){
+            visited[current] = true;
+            
+            for(int adjNode : adj.get(current)){
+                if(visited[adjNode]){
+                    if(adjNode != previous){
+                        return true;
+                    }
+                } else {
+                        if(computeCycleDetectionDFS(adjNode, current, adj, visited)){
+                            return true;
+                        }
+                }
+            }
+            
+            return false;
+        }
+    
+        public boolean computeCycleDetectionBFS(int vertex, ArrayList<ArrayList<Integer>> adj, boolean[] visited){
+            Queue<Data> queue = new LinkedList<>();
+            queue.add(new Data(vertex, -1));
+            visited[vertex] = true;
+            
+            
+            while(!queue.isEmpty()){
+                Data current = queue.poll();
+                
+                int currentNode = current.node;
+                int previous = current.previous;
+                
+                for(int adjNode : adj.get(currentNode)){
+                    if(visited[adjNode]){
+                        if(adjNode != previous){
+                            return true;
+                        }
+                    }else{
+                        queue.add(new Data(adjNode, currentNode));
+                        visited[adjNode] = true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+    }
+------------------------------------------------------------------------------------------------------------------
 **5. Flood Fill**
 
 _**LeetCode (Medium)**_: https://leetcode.com/problems/flood-fill/description/
