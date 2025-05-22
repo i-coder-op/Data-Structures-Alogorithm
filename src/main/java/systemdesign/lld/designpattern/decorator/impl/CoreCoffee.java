@@ -1,6 +1,6 @@
-package systemdesign.lld.designpattern.decorator.coffee.impl;
+package systemdesign.lld.designpattern.decorator.impl;
 
-import systemdesign.lld.designpattern.decorator.coffee.ICoffee;
+import systemdesign.lld.designpattern.decorator.ICoffee;
 
 public class CoreCoffee implements ICoffee {
     public String coffeeType = "CoreCoffee";

@@ -1,6 +1,6 @@
-package systemdesign.lld.designpattern.decorator.coffee.decorator;
+package systemdesign.lld.designpattern.decorator.decorator;
 
-import systemdesign.lld.designpattern.decorator.coffee.ICoffee;
+import systemdesign.lld.designpattern.decorator.ICoffee;
 
 public abstract class CoffeeDecorator implements ICoffee {
 
