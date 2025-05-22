@@ -1,9 +1,9 @@
-package systemdesign.lld.designpattern.decorator.coffee.runner;
+package systemdesign.lld.designpattern.decorator.runner;
 
-import systemdesign.lld.designpattern.decorator.coffee.ICoffee;
-import systemdesign.lld.designpattern.decorator.coffee.decorator.impl.ColdCoffee;
-import systemdesign.lld.designpattern.decorator.coffee.decorator.impl.HotCoffee;
-import systemdesign.lld.designpattern.decorator.coffee.impl.CoreCoffee;
+import systemdesign.lld.designpattern.decorator.ICoffee;
+import systemdesign.lld.designpattern.decorator.decorator.impl.ColdCoffee;
+import systemdesign.lld.designpattern.decorator.decorator.impl.HotCoffee;
+import systemdesign.lld.designpattern.decorator.impl.CoreCoffee;
 
 public class CoffeeDecoratorRunner {
     public static void main(String[] args) {

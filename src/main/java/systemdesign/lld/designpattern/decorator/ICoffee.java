@@ -1,4 +1,4 @@
-package systemdesign.lld.designpattern.decorator.coffee;
+package systemdesign.lld.designpattern.decorator;
 
 public interface ICoffee {
     public String getCoffeeType();
